@@ -12,7 +12,6 @@ var Card = function (suit, value, royal, image) {
 }
 var cardObjects = [];
 
-
 var cardFace = '23456789TJQK';
 var suit = '♤♡♢♧';
 var cards = [];
@@ -27,35 +26,26 @@ var makeCards = function() {
     for (var f = 1; f <= cardFace.length; f++) {
       //if s = 0 then Spades
       if (s === 0){setSuit = 'spade'}
-        else setSuit = 'hearts'
       //if s = 1 then Hearts
-      if (s === 1){setSuit = 'hearts'}
-        else setSuit = 'diamonds'
+      else if (s === 1){setSuit = 'hearts'}
       //if s = 2 then Diamonds
-      if (s === 2){setSuit = 'diamonds'}
-        else setSuit = 'clubs'
+      else if (s === 2){setSuit = 'diamonds'}
       //if s = 3 then Clubs
-      if (s === 3){setSuit = 'clubs'}
-        else setSuit = 'spade'
+      else {setSuit = 'clubs'}
+
+
       // if f = 1 then value = 1 royal = ace
-      if (f === 1){setRoyal = 'ace'}
-        else setSuit = 'figureItOut'
+      if (f === 1){setRoyal = 'ace'; setValue = 1}
       //if f = 10 then value = 10 royal = jack
-      if (f === 10){setRoyal = 'jack'}
-        else setSuit = 'figureItOut'
+      else if (f === 11){setRoyal = 'jack'; setValue = 10}
       // if f = 11 then value = 10 royal = queen
-      if (f === 11){setRoyal = 'queen'}
-        else setSuit = 'figureItOut'
+      else if(f === 12){setRoyal = 'queen'; setValue = 10}
       // if f = 12 then value = 10 royal = king
-      if (f === 12){setRoyal = 'king'}
-        else setSuit = 'figureItOut'
+      else if(f === 13){setRoyal = 'king'; setValue = 10}
       //if f is in between 2 and 10 in the index number then the royal is going to be none
-      if (f>2, f<10)
-      setValue = f;
+      else {setValue = f; setRoyal = "none"};
       var card = new Card (setSuit, setValue, setRoyal, setImage);
       cardObjects.push(card);
-
-
 
       cards.push(cardFace[f] + suit[s]);
       // console.log(cards);
@@ -72,20 +62,21 @@ function shuffle(o){ //v1.0
 }
 makeCards();
 //Cards are shuffled
-var displayCards = shuffle(cards);
+// var displayCards = shuffle(cards);
 // console.log(cards);
-//then create a loop or nested loop to deal cards to player and dealer
+//Step three then create a loop or nested loop to deal cards to player and dealer
 $('#deal').click(function (){
-  dealCard(randomCard());
+  dealCard(cards);
 });
-console.log(dealCard);
+
+// function displayCards
 
 //Tania recommended a set of globally defined variables for major parts or players of the game:
 //store dealt in variables for player and dealer
-var playerHand = [];
-var dealerHand = [];
-
-var players = [playerHand, dealerHand];
+// var playerHand = [];
+// var dealerHand = [];
+//
+// var players = [playerHand, dealerHand];
 
 //Using the .pop and .push methods can we deal the cards, two cards to each player?
 
@@ -140,14 +131,14 @@ var players = [playerHand, dealerHand];
   // var displayCards = shuffle(cards);
 
 /////////////////////////////////////////////Jquery to show each card
-$(function() {
-  var shuffleCardobjects = shuffle(cardObjects);
-  var getCard = shuffleCardobjects.pop();
-  var firstCard = $('#first-card');
-  firstCard.text(getCard.value + " " + getCard.suit + " " + getCard.royal);
-  // create an image element and set it to the variable
-  var cardImage = $("<img>")
-  cardImage.attr("src", getCard.image)
-  firstCard.append(cardImage);
-  console.log(firstCard);
-});
+  $(function() {
+    var shuffleCardobjects = shuffle(cardObjects);
+    var getCard = shuffleCardobjects.pop();
+    var firstCard = $('#first-card');
+    firstCard.text(getCard.value + " " + getCard.suit + " " + getCard.royal);
+    // create an image element and set it to the variable
+    var cardImage = $("<img>")
+    cardImage.attr("src", getCard.image)
+    firstCard.append(cardImage);
+    console.log(firstCard);
+  });
