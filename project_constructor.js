@@ -1,6 +1,7 @@
 console.log('the constructor file is connected');
 
 var cards = ["aceSpadelow", "aceSpadehigh", "kingSpade", "queenSpade", "jackSpade", "tenSpade", "nineSpade", "eightSpade", "sevenSpade", "sixSpade", "fiveSpade", "fourSpade", "threeSpade", "twoSpade", "aceHeartslow", "aceHeartshigh", "kingHearts", "queenHearts", "jackHearts", "tenHearts", "nineHearts"]
+//why are these turning gray? Is there a limit to how many items I can place in an array manually?
 console.log('cards')
 
 //create 52 cards as objects, using a constructor function to give them a value. Use a boolean true or false statement to show them face up or face down.
@@ -237,3 +238,7 @@ var threeClubs = {
 var twoClubs = {
   value: 2,
 }
+
+//Vectorized Playing Cards 2.0 - http://sourceforge.net/projects/vector-cards/
+// Copyright 2015 - Chris Aguilar - conjurenation@gmail.com
+// Licensed under LGPL 3 - www.gnu.org/copyleft/lesser.html
