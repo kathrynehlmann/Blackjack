@@ -1,9 +1,18 @@
 console.log('the constructor file is connected');
 
+var cards = ["aceSpadelow", "aceSpadehigh", "kingSpade", "queenSpade", "jackSpade", "tenSpade", "nineSpade", "eightSpade", "sevenSpade", "sixSpade", "fiveSpade", "fourSpade", "threeSpade", "twoSpade", "aceHeartslow", "aceHeartshigh", "kingHearts", "queenHearts", "jackHearts", "tenHearts", "nineHearts"]
+console.log('cards')
+
 //create 52 cards as objects, using a constructor function to give them a value. Use a boolean true or false statement to show them face up or face down.
 //Spades
 var aceSpadelow = {
   value: 1,
+  //want to add images to each object, need help with this
+  // document.setAttribute("src", "card_images/acespades.png");
+  // document.setAttribute("width", "165");
+  // document.setAttribute("height", "240");
+  // document.setAttribute("alt", "Ace of Spades");
+  // document.body.append(x);
 }
 console.log(aceSpadelow);
 var aceSpadehigh = {
