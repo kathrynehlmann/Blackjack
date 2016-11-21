@@ -61,49 +61,6 @@ function shuffle(o){ //v1.0
     return o;
 }
 makeCards();
-//Cards are shuffled
-// var displayCards = shuffle(cards);
-// console.log(cards);
-//Step three then create a loop or nested loop to deal cards to player and dealer
-$('#deal').click(function (){
-  dealCard(cards);
-});
-
-// function displayCards
-
-//Tania recommended a set of globally defined variables for major parts or players of the game:
-//store dealt in variables for player and dealer
-// var playerHand = [];
-// var dealerHand = [];
-//
-// var players = [playerHand, dealerHand];
-
-//Using the .pop and .push methods can we deal the cards, two cards to each player?
-
-
-//thinking an if else statement with functions in each part of the statement to compare the players hand to the dealers hand
-
-
-
-
-
-
-
-
-
-
-
-//if else statement to check aces for values in each direction, using 11 as the indicator - "if less than 11 deal aceSpadehigh" "if more than 11 deal aceSpadelow"
-
-
-  //thinking an if else statement with functions in each part to add or subtract from the players bank
-
-
-
-
-
-
-
 
 ////////////////////////////////////////////This works!
   // var cardFace = '23456789TJQK';
@@ -130,15 +87,68 @@ $('#deal').click(function (){
   // //Cards are shuffled
   // var displayCards = shuffle(cards);
 
+
+  //Step three then create a loop or nested loop to deal cards to player and dealer
+
 /////////////////////////////////////////////Jquery to show each card
   $(function() {
-    var shuffleCardobjects = shuffle(cardObjects);
-    var getCard = shuffleCardobjects.pop();
-    var firstCard = $('#first-card');
-    firstCard.text(getCard.value + " " + getCard.suit + " " + getCard.royal);
-    // create an image element and set it to the variable
-    var cardImage = $("<img>")
-    cardImage.attr("src", getCard.image)
-    firstCard.append(cardImage);
-    console.log(firstCard);
+    var dealCard = function () {
+      var shuffleCardobjects = shuffle(cardObjects);
+      var getCard = shuffleCardobjects.pop();
+      var firstCard = $('#first-card');
+      firstCard.text(getCard.value + " " + getCard.suit + " " + getCard.royal);
+      // create an image element and set it to the variable
+      var cardImage = $("<img>")
+      cardImage.attr("src", getCard.image)
+      firstCard.append(cardImage);
+      console.log(firstCard);
+    }
+    $('#deal').click( dealCard)
   });
+//////call twice for each of the player or dealer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//Cards are shuffled
+// var displayCards = shuffle(cards);
+// console.log(cards);
+
+// function displayCards
+
+//Tania recommended a set of globally defined variables for major parts or players of the game:
+//store dealt in variables for player and dealer
+// var playerHand = [];
+// var dealerHand = [];
+//
+// var players = [playerHand, dealerHand];
+
+//Using the .pop and .push methods can we deal the cards, two cards to each player?
+
+
+//thinking an if else statement with functions in each part of the statement to compare the players hand to the dealers hand
+
+
+
+//if else statement to check aces for values in each direction, using 11 as the indicator - "if less than 11 deal aceSpadehigh" "if more than 11 deal aceSpadelow"
+
+
+  //thinking an if else statement with functions in each part to add or subtract from the players bank
