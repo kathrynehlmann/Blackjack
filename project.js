@@ -20,7 +20,7 @@ var makeCards = function() {
   var setSuit;
   var setRoyal;
   var setValue;
-  var setImage = "card_images/acespades.png";
+  var setImage = "card_images/cardreverse.png"; // set to back of the card image
 
   for (var s = 0; s < suit.length; s++) {
     for (var f = 1; f <= cardFace.length; f++) {
@@ -53,6 +53,15 @@ var makeCards = function() {
     }
   // console.log("I'm making cards", cardFace.length, suit.length);
 }
+
+//define an image key set of objects with set value within a for loop to add images with if else statement then append this image to the table
+//deck object to reset
+
+// generate a random number to call on an index
+// look into disabling click events
+
+
+
 //shuffle cards with math.random
 // credit to + Jonas Raoni Soares Silva
 //@ http://jsfromhell.com/array/shuffle [v1.0]
@@ -107,11 +116,50 @@ makeCards();
   });
 //////call twice for each of the player or dealer
 
+$(function() {
+  var dealCardtwo = function () {
+    var shuffleCardobjects = shuffle(cardObjects);
+    var getCard = shuffleCardobjects.pop();
+    var secondCard = $('#second-card');
+    secondCard.text(getCard.value + " " + getCard.suit + " " + getCard.royal);
+    // create an image element and set it to the variable
+    var cardImage = $("<img>")
+    cardImage.attr("src", getCard.image)
+    secondCard.append(cardImage);
+    console.log(secondCard);
+  }
+  $('#dealTwo').click( dealCardtwo)
+});
 
+$(function() {
+  var dealCardthree = function () {
+    var shuffleCardobjects = shuffle(cardObjects);
+    var getCard = shuffleCardobjects.pop();
+    var thirdCard = $('#third-card');
+    thirdCard.text(getCard.value + " " + getCard.suit + " " + getCard.royal);
+    // create an image element and set it to the variable
+    var cardImage = $("<img>")
+    cardImage.attr("src", getCard.image)
+    thirdCard.append(cardImage);
+    console.log(thirdCard);
+  }
+  $('#dealThree').click( dealCardthree)
+});
 
-
-
-
+$(function() {
+  var dealCardfour = function () {
+    var shuffleCardobjects = shuffle(cardObjects);
+    var getCard = shuffleCardobjects.pop();
+    var fourthCard = $('#fourth-card');
+    fourthCard.text(getCard.value + " " + getCard.suit + " " + getCard.royal);
+    // create an image element and set it to the variable
+    var cardImage = $("<img>")
+    cardImage.attr("src", getCard.image)
+    fourthCard.append(cardImage);
+    console.log(fourthCard);
+  }
+  $('#dealFour').click( dealCardfour)
+});
 
 
 

@@ -15,6 +15,8 @@ var aceSpadelow = {
   // document.setAttribute("alt", "Ace of Spades");
   // document.body.append(x);
 }
+
+// Do five of these and test, then do the rest
 console.log(aceSpadelow);
 var aceSpadehigh = {
   value: 11,
