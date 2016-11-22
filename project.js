@@ -9,6 +9,7 @@ var Card = function (suit, value, royal, image) {
   this.value = value;
   this.royal = royal || "none";
   this.image = image;
+  this.backOfCard = "card_images/cardreverse.png";
 }
 var cardObjects = [];
 
@@ -44,6 +45,8 @@ var makeCards = function() {
       else if(f === 13){setRoyal = 'king'; setValue = 10}
       //if f is in between 2 and 10 in the index number then the royal is going to be none
       else {setValue = f; setRoyal = "none"};
+      setImage = "card_images/" + setSuit + setValue + setRoyal + ".png"
+      
       var card = new Card (setSuit, setValue, setRoyal, setImage);
       cardObjects.push(card);
 
