@@ -64,28 +64,51 @@ function shuffle(o){ //v1.0
     return o;
 }
 ////////////////////////////////////////////Click Events
-
+//Declare an anoymous function for window onload
   $(function() {
+    var sum = 0
+    ///Delcare the variable dealCard and assigns it to a function.
     var dealCard = function () {
+      //CardObjects is popping the last element from the array. Get card is holding on to the element that was popped out of the array.
       var getCard = cardObjects.pop();
+      console.log(getCard);
+      //Variable that is called playerCards and refers to a div with an id of #player-cards
       var $playerCards = $('#player-cards');
-      var card = $('<div>').text(getCard.value + " " + getCard.suit + " " + getCard.royal);
-      $playerCards.append(card);
-      // create an image element and set it to the variable
-      var cardImage = $("<img>")
-      cardImage.attr("src", getCard.image)
+      //Image tage is being created and assigned to the variable cardImage
+      var cardImage = $("<img>");
+      //getCard.image is accessing a string, stored within the getCard object with the key image
+      cardImage.attr("src", getCard.image);
+      cardImage.addClass('card');
+      //cardImage is being appended each time to playerCards
       $playerCards.append(cardImage);
+      //tally up the score of the cards dealt using sum
+        //each of the cards has a value, and that value needs to be accessed and added together to be used by the program
+      console.log(getCard.value);
+      sum = sum + getCard.value
+      console.log("Current sum " + sum);
+      //display that score to the user
 
-      // firstCard.text(getCard.value + " " + getCard.suit + " " + getCard.royal);
-      // create an image element and set it to the variable
-      // var cardImage = $("<img>")
-      // cardImage.attr("src", getCard.image)
-      // firstCard.append(cardImage);
-      // console.log(firstCard);
+      //use the score to tell the program if the player has gone bust
+      
+      //if the program determines that they have gone bust, a message needs to be displayed to the user.
+
+
     }
+    dealCard ();
+    dealCard ();
     $('#deal').click( dealCard)
   });
 //////call twice for each of the player or dealer
+
+
+
+
+
+
+
+
+
+
 
 // $(function() {
 //   var dealCardtwo = function () {
@@ -149,6 +172,21 @@ function shuffle(o){ //v1.0
 
 
 
+
+////////////////////////////
+
+// var card = $('<div>').text(getCard.value + " " + getCard.suit + " " + getCard.royal);
+// $playerCards.append(card);
+// create an image element and set it to the variable
+
+////////////////////////////
+
+// firstCard.text(getCard.value + " " + getCard.suit + " " + getCard.royal);
+// create an image element and set it to the variable
+// var cardImage = $("<img>")
+// cardImage.attr("src", getCard.image)
+// firstCard.append(cardImage);
+// console.log(firstCard);
 ////////////////////////////
 // setSuit = suit[s];
 /////////////////////////////////////////////

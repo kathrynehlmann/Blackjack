@@ -10,6 +10,12 @@ body {
 
 }
 
+.card {
+  display: inline-block;
+  
+}
+
+
 * {
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
