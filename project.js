@@ -1,5 +1,6 @@
 console.log('Welcome to Project One');
-
+////////////////////////////////////////////Game Setup
+//Constructor Function that generates the objects of the cards in the game
 var Card = function (suit, value, royal, image) {
   this.suit = suit;
   this.value = value;
@@ -7,114 +8,129 @@ var Card = function (suit, value, royal, image) {
   this.image = image;
   this.backOfCard = "card_images/cardreverse.png";
 }
+//Collect and contain the card objects in an array from the Constructor Function
 var cardObjects = [];
-
+//List of cardfaces to be used in a loop to generate card objects
 var cardFace = 'A23456789TJQK';
+//Array of suits to loop though for the card objects
 var suit = ['spade', 'hearts', 'diamonds', 'clubs'];
-
+//Function that sets values for each card object and pushes a card object into the cardObjects array
 var makeCards = function() {
   var setSuit;
   var setRoyal;
   var setValue;
   var setImage = "card_images/cardreverse.png"; // set image to back of the card.
-
+//For loop that iterates through the suit array
   for (var s = 0; s < suit.length; s++) {
+// for each suit, iterate over the cardFace string (13 times) for a total of 52 times
     for (var f = 1; f <= cardFace.length; f++) {
-
-      setSuit = suit[s];
-      if (f === 1){setRoyal = 'ace'; setValue = 1}
-      //if f = 10 then value = 10 royal = jack
-      else if (f === 11){setRoyal = 'jack'; setValue = 10}
-      // if f = 11 then value = 10 royal = queen
-      else if(f === 12){setRoyal = 'queen'; setValue = 10}
-      // if f = 12 then value = 10 royal = king
-      else if(f === 13){setRoyal = 'king'; setValue = 10}
-      //if f is in between 2 and 10 in the index number then the royal is going to be none
-      else {setValue = f; setRoyal = "none"};
-      setImage = "card_images/" + setSuit + setValue + setRoyal + ".png"
-
-      var card = new Card (setSuit, setValue, setRoyal, setImage);
+//check for ace king queen or jack or none and assigning the setValue and setRoyal for the constructor function to include in gameplay
+      if (f === 1) {
+        setRoyal = 'ace';
+        setValue = f;
+      } else if (f === 11) {
+        setRoyal = 'jack';
+        setValue = 10;
+      } else if(f === 12) {
+        setRoyal = 'queen';
+        setValue = 10;
+      } else if(f === 13) {
+        setRoyal = 'king';
+        setValue = 10;
+      } else {
+        setValue = f;
+        setRoyal = "none";
+      };
+      //assigns the images from the card_images folder and assigns the suit, value and sets if the card object is a royal
+      setImage = "card_images/" + suit[s] + setValue + setRoyal + ".png"
+      //Runs the constructor function with all of the values generated within the nested loop will run for each of the 52 card objects
+      var card = new Card (suit[s], setValue, setRoyal, setImage);
+      //cardObjects.push places another card from the constructor function into the array
       cardObjects.push(card);
-
-
       } //end inner loop
     } //end outer loop
     console.log(cardObjects); //looking for missing cards
 }  //end of make card function
 
-
-
-
+makeCards(); //invoking the function that creates the cards
+shuffle (cardObjects);
+console.log(cardObjects);
 //shuffle cards with math.random
 // credit to + Jonas Raoni Soares Silva
 //@ http://jsfromhell.com/array/shuffle [v1.0]
+//Takes an array and shuffles the elements
 function shuffle(o){ //v1.0
     for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
     return o;
 }
-makeCards();
-
+////////////////////////////////////////////Click Events
 
   $(function() {
     var dealCard = function () {
-      var shuffleCardobjects = shuffle(cardObjects);
-      var getCard = shuffleCardobjects.pop();
-      var firstCard = $('#first-card');
-      firstCard.text(getCard.value + " " + getCard.suit + " " + getCard.royal);
+      var getCard = cardObjects.pop();
+      var $playerCards = $('#player-cards');
+      var card = $('<div>').text(getCard.value + " " + getCard.suit + " " + getCard.royal);
+      $playerCards.append(card);
       // create an image element and set it to the variable
       var cardImage = $("<img>")
       cardImage.attr("src", getCard.image)
-      firstCard.append(cardImage);
-      console.log(firstCard);
+      $playerCards.append(cardImage);
+
+      // firstCard.text(getCard.value + " " + getCard.suit + " " + getCard.royal);
+      // create an image element and set it to the variable
+      // var cardImage = $("<img>")
+      // cardImage.attr("src", getCard.image)
+      // firstCard.append(cardImage);
+      // console.log(firstCard);
     }
     $('#deal').click( dealCard)
   });
 //////call twice for each of the player or dealer
 
-$(function() {
-  var dealCardtwo = function () {
-    var shuffleCardobjects = shuffle(cardObjects);
-    var getCard = shuffleCardobjects.pop();
-    var secondCard = $('#second-card');
-    secondCard.text(getCard.value + " " + getCard.suit + " " + getCard.royal);
-    // create an image element and set it to the variable
-    var cardImage = $("<img>")
-    cardImage.attr("src", getCard.image)
-    secondCard.append(cardImage);
-    console.log(secondCard);
-  }
-  $('#dealTwo').click( dealCardtwo)
-});
-
-$(function() {
-  var dealCardthree = function () {
-    var shuffleCardobjects = shuffle(cardObjects);
-    var getCard = shuffleCardobjects.pop();
-    var thirdCard = $('#third-card');
-    thirdCard.text(getCard.value + " " + getCard.suit + " " + getCard.royal);
-    // create an image element and set it to the variable
-    var cardImage = $("<img>")
-    cardImage.attr("src", getCard.image)
-    thirdCard.append(cardImage);
-    console.log(thirdCard);
-  }
-  $('#dealThree').click( dealCardthree)
-});
-
-$(function() {
-  var dealCardfour = function () {
-    var shuffleCardobjects = shuffle(cardObjects);
-    var getCard = shuffleCardobjects.pop();
-    var fourthCard = $('#fourth-card');
-    fourthCard.text(getCard.value + " " + getCard.suit + " " + getCard.royal);
-    // create an image element and set it to the variable
-    var cardImage = $("<img>")
-    cardImage.attr("src", getCard.image)
-    fourthCard.append(cardImage);
-    console.log(fourthCard);
-  }
-  $('#dealFour').click( dealCardfour)
-});
+// $(function() {
+//   var dealCardtwo = function () {
+//     var shuffleCardobjects = shuffle(cardObjects);
+//     var getCard = shuffleCardobjects.pop();
+//     var secondCard = $('#second-card');
+//     secondCard.text(getCard.value + " " + getCard.suit + " " + getCard.royal);
+//     // create an image element and set it to the variable
+//     var cardImage = $("<img>")
+//     cardImage.attr("src", getCard.image)
+//     secondCard.append(cardImage);
+//     console.log(secondCard);
+//   }
+//   $('#dealTwo').click( dealCardtwo)
+// });
+//
+// $(function() {
+//   var dealCardthree = function () {
+//     var shuffleCardobjects = shuffle(cardObjects);
+//     var getCard = shuffleCardobjects.pop();
+//     var thirdCard = $('#third-card');
+//     thirdCard.text(getCard.value + " " + getCard.suit + " " + getCard.royal);
+//     // create an image element and set it to the variable
+//     var cardImage = $("<img>")
+//     cardImage.attr("src", getCard.image)
+//     thirdCard.append(cardImage);
+//     console.log(thirdCard);
+//   }
+//   $('#dealThree').click( dealCardthree)
+// });
+//
+// $(function() {
+//   var dealCardfour = function () {
+//     var shuffleCardobjects = shuffle(cardObjects);
+//     var getCard = shuffleCardobjects.pop();
+//     var fourthCard = $('#fourth-card');
+//     fourthCard.text(getCard.value + " " + getCard.suit + " " + getCard.royal);
+//     // create an image element and set it to the variable
+//     var cardImage = $("<img>")
+//     cardImage.attr("src", getCard.image)
+//     fourthCard.append(cardImage);
+//     console.log(fourthCard);
+//   }
+//   $('#dealFour').click( dealCardfour)
+// });
 
 
 
@@ -131,6 +147,11 @@ $(function() {
 // Copyright 2015 - Chris Aguilar - conjurenation@gmail.com
 // Licensed under LGPL 3 - www.gnu.org/copyleft/lesser.html
 
+
+
+////////////////////////////
+// setSuit = suit[s];
+/////////////////////////////////////////////
 // console.log("I'm making cards", cardFace.length, suit.length);
 // var cards = [];
 //use a for loop to check the legnth of the suit (s for suit) and cardFace (f for cardFace)
