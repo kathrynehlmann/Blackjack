@@ -89,8 +89,12 @@ function shuffle(o){ //v1.0
       //display that score to the user
 
       //use the score to tell the program if the player has gone bust
-      
+      if (sum > 21) {
+        playerIs = 'bust';
       //if the program determines that they have gone bust, a message needs to be displayed to the user.
+        alert('You have gone bust');
+      }
+
 
 
     }
