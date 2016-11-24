@@ -1,6 +1,5 @@
 body {
-  background: green
-;
+  background: green;
 }
 
 .player-cards {
@@ -10,9 +9,16 @@ body {
 
 }
 
+.dealer-cards {
+  display:inline-block;
+  max-width: 600px;
+  margin: 0 auto;
+
+}
+
 .card {
   display: inline-block;
-  
+
 }
 
 

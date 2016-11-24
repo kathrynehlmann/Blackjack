@@ -1,5 +1,11 @@
-console.log('Welcome to Project One');
+console.log('Welcome to BlackJack, circa 1997');
 ////////////////////////////////////////////Game Setup
+
+//Two globally defined variables to keep track of player points and dealer points to see who is winning or losing
+var playerPoints = 0;
+var dealerPoints = 0;
+
+
 //Constructor Function that generates the objects of the cards in the game
 var Card = function (suit, value, royal, image) {
   this.suit = suit;
@@ -8,7 +14,7 @@ var Card = function (suit, value, royal, image) {
   this.image = image;
   this.backOfCard = "card_images/cardreverse.png";
 }
-//Collect and contain the card objects in an array from the Constructor Function
+//Collect and contain the card objects in an array from the Constructor Function. This is the deck of cards.
 var cardObjects = [];
 //List of cardfaces to be used in a loop to generate card objects
 var cardFace = 'A23456789TJQK';
@@ -63,12 +69,43 @@ function shuffle(o){ //v1.0
     for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
     return o;
 }
-////////////////////////////////////////////Click Events
+
+//////////////////winning conditions function
+  //if the program determines that they have gone bust, a message needs to be displayed to the user.
+  //use the score to tell the program if the dealer has gone bust
+  // if (sum > 21) {
+  //   dealerIs = 'bust';
+          // alert('The dealer has gone bust');
+
+var checkPlayerPoints = function(){
+    if (playerPoints < 21) {
+      //keep the player's button active
+    } else if (playerPoints > 21){
+      alert('You have busted');
+    } else if (playerPoints == 21){
+      alert('Congrats! You won!');
+    }
+};
+
+var checkDealerPoints = function(){
+    if (dealerPoints < 17) {
+    } else if (dealerPoints > 21){
+      alert('You have won!!');
+    } else if (dealerPoints > playerPoints){
+      alert('You have lost, sorry!');
+    } else if (dealerPoints == playerPoints){
+      alert('You have a tie, please play again!');
+    }
+};
+
+////////////////////////////////////////////Start of Click Events
+
+//////////Start of player hand function
 //Declare an anoymous function for window onload
   $(function() {
     var sum = 0
-    ///Delcare the variable dealCard and assigns it to a function.
-    var dealCard = function () {
+    ///Delcare the variable dealPlayercard and assigns it to a function.
+    var dealPlayerCard = function () {
       //CardObjects is popping the last element from the array. Get card is holding on to the element that was popped out of the array.
       var getCard = cardObjects.pop();
       console.log(getCard);
@@ -87,33 +124,109 @@ function shuffle(o){ //v1.0
       sum = sum + getCard.value
       console.log("Current sum " + sum);
       //display that score to the user
+      playerPoints += getCard.value;
+      console.log(playerPoints);
 
+      checkPlayerPoints();
       //use the score to tell the program if the player has gone bust
-      if (sum > 21) {
-        playerIs = 'bust';
+      // if (sum > 21) {
+      //   playerIs = 'bust';
       //if the program determines that they have gone bust, a message needs to be displayed to the user.
-        alert('You have gone bust');
+        // alert('You have gone bust');
+        //define the winning function for the player here
       }
+    // }
+////////////////////////////Start of dealer hand function
+      ///Delcare the variable dealDealerCard and assigns it to a function.
+      var dealDealerCard = function () {
+        //CardObjects is popping the last element from the array. Get card is holding on to the element that was popped out of the array.
+        var getCard = cardObjects.pop();
+        // console.log(getCard);
+        //Variable that is called dealerCards and refers to a div with an id of #dealer-cards
+        var $dealerCards = $('#dealer-cards');
+        //Image tag is being created and assigned to the variable cardImage
+        var cardImage = $("<img>");
+        //getCard.image is accessing a string, stored within the getCard object with the key image
+        cardImage.attr("src", getCard.image);
+        cardImage.addClass('card');
+        //cardImage is being appended each time to playerCards
+        $dealerCards.append(cardImage);
+        //tally up the score of the cards dealt using sum
+          //each of the cards has a value, and that value needs to be accessed and added together to be used by the program
+        console.log(getCard.value);
+        dealerPoints += getCard.value;
+        console.log(dealerPoints);
+        checkDealerPoints ();
+        //Variable that is called playerCards and refers to a div with an id of #player-cards
+
+        //defining a while loop for dealer card so that the cards continue to be dealt - it looks to the dealer points variable to determine if a card is dealt
+
+        }
+    // });
+    // dealPlayerCard ();
+    // dealPlayerCard ();
+    //
+    // dealDealerCard ();
+    // dealDealerCard ();
 
 
 
-    }
-    dealCard ();
-    dealCard ();
-    $('#deal').click( dealCard)
-  });
-//////call twice for each of the player or dealer
+    $('#hit').click(dealPlayerCard);
+    $('#stay').click(dealDealerCard);
+
+
+    var twoCardsDealt = function() {
+      console.log("This is the two cards dealt function");
+      for (var i = 0; i < 2; i++) {
+        var getCard = cardObjects.pop();
+        var $dealerCards = $('#dealer-cards');
+        var cardImage = $("<img>");
+        cardImage.attr("src", getCard.image);
+        cardImage.addClass('card');
+        $dealerCards.append(cardImage);
+        console.log(getCard.value);
+        dealerPoints += getCard.value;
+
+        var getCard = cardObjects.pop();
+        console.log(getCard);
+        var $playerCards = $('#player-cards');
+        var cardImage = $("<img>");
+        cardImage.attr("src", getCard.image);
+        cardImage.addClass('card');
+        $playerCards.append(cardImage);
+        playerPoints += getCard.value;
+        console.log(playerPoints);
+      };
+      checkPlayerPoints();
+    };
+    $('#bet').click(twoCardsDealt);
+    //create a function that only creates the first two cards for the dealer and for the player
 
 
 
 
 
 
+  });  //Reminder that this is part of the window onload
 
 
 
-
-
+  // //Image tag is being created and assigned to the variable cardImage
+  // var cardImage = $("<img>");
+  // //getCard.image is accessing a string, stored within the getCard object with the key image
+  // cardImage.attr("src", getCard.image);
+  // cardImage.addClass('card');
+  // //cardImage is being appended each time to playerCards
+  // $playerCards.append(cardImage);
+  // //tally up the score of the cards dealt using sum
+  //   //each of the cards has a value, and that value needs to be accessed and added together to be used by the program
+  // console.log(getCard.value);
+  // sum = sum + getCard.value
+  // //display that score to the user
+  // playerPoints += getCard.value;
+  // console.log(playerPoints);
+  //
+  // checkPlayerPoints();
 // $(function() {
 //   var dealCardtwo = function () {
 //     var shuffleCardobjects = shuffle(cardObjects);
@@ -174,8 +287,8 @@ function shuffle(o){ //v1.0
 // Copyright 2015 - Chris Aguilar - conjurenation@gmail.com
 // Licensed under LGPL 3 - www.gnu.org/copyleft/lesser.html
 
-
-
+// Original sum function for player score
+// sum = sum + getCard.value
 
 ////////////////////////////
 
