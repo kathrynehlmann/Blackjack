@@ -77,7 +77,7 @@ function shuffle(o){ //v1.0
 //////////////////winning conditions function
 var checkPlayerPoints = function(){
     if (playerPoints < 21) {
-      //keep the player's button active
+      //keep the player's button active using else if statements
     } else if (playerPoints > 21){
       alert('You have busted. Please refresh the page to play again.');
     } else if (playerPoints == 21){
@@ -109,7 +109,7 @@ var checkDealerPoints = function(){
       console.log(getCard);
       //Variable that is called playerCards and refers to a div with an id of #player-cards
       var $playerCards = $('#player-cards');
-      //Image tage is being created and assigned to the variable cardImage
+      //Image tag is being created and assigned to the variable cardImage
       var cardImage = $("<img>");
       //getCard.image is accessing a string, stored within the getCard object with the key image
       cardImage.attr("src", getCard.image);
@@ -153,15 +153,10 @@ var checkDealerPoints = function(){
         //defining a while loop for dealer card so that the cards continue to be dealt - it looks to the dealer points variable to determine if a card is dealt
 
         }
-/////////////Hit and Stay buttons
-    $('#hit').click(dealPlayerCard);
-    $('#stay').click(dealDealerCard);
-
-    
 
 /////////////function that only creates the first two cards for the dealer and for the player to start gameplay after the initial bet
     var twoCardsDealt = function() {
-      console.log("This is the two cards dealt function");
+      // console.log("This is the two cards dealt function");
       for (var i = 0; i < 2; i++) {
         var getCard = cardObjects.pop();
         var $dealerCards = $('#dealer-cards');
@@ -173,18 +168,44 @@ var checkDealerPoints = function(){
         dealerPoints += getCard.value;
 
         var getCard = cardObjects.pop();
-        console.log(getCard);
+        // console.log(getCard);
         var $playerCards = $('#player-cards');
         var cardImage = $("<img>");
         cardImage.attr("src", getCard.image);
         cardImage.addClass('card');
         $playerCards.append(cardImage);
         playerPoints += getCard.value;
-        console.log(playerPoints);
+        // console.log(playerPoints);
       };
       checkPlayerPoints();
     };
     $('#bet').click(twoCardsDealt);
+
+    /////////////Hit and Stay buttons
+    $('#hit').click(dealPlayerCard);
+    $('#stay').click(dealDealerCard);
+
+    /////////////Update the bank and bet functions and display them
+    function updateCash() {
+    $('#cash').html('You have $' + cash.toString());
+    $('#add-bet').html('Standard Bet: $' + bet.toString());
+    }
+
+    updateCash ();
+    ///////////Make a bet
+    $('#bet').click(function() {
+      if(cash > bet) {
+        cash -= 10;
+        updateCash();
+        // console.log(cash);
+      }
+    });
+
+
+
+
+
+
 
   });  //Reminder that this is part of the window onload
 
