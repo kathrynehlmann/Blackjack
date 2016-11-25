@@ -5,8 +5,11 @@ console.log('Welcome to BlackJack, circa 1997');
 var playerPoints = 0;
 var dealerPoints = 0;
 
+//Two globally defined variables to assign values to the player's cash and bet aspects of gameplay
+var cash = 100;
+var bet = 10;
 
-//Constructor Function that generates the objects of the cards in the game
+//Constructor Function that generates the objects of the cards in the game, including the image of the back of the card.
 var Card = function (suit, value, royal, image) {
   this.suit = suit;
   this.value = value;
@@ -14,6 +17,7 @@ var Card = function (suit, value, royal, image) {
   this.image = image;
   this.backOfCard = "card_images/cardreverse.png";
 }
+
 //Collect and contain the card objects in an array from the Constructor Function. This is the deck of cards.
 var cardObjects = [];
 //List of cardfaces to be used in a loop to generate card objects
@@ -29,7 +33,7 @@ var makeCards = function() {
 //For loop that iterates through the suit array
   for (var s = 0; s < suit.length; s++) {
 // for each suit, iterate over the cardFace string (13 times) for a total of 52 times
-    for (var f = 1; f <= cardFace.length; f++) {
+  for (var f = 1; f <= cardFace.length; f++) {
 //check for ace king queen or jack or none and assigning the setValue and setRoyal for the constructor function to include in gameplay
       if (f === 1) {
         setRoyal = 'ace';
@@ -59,8 +63,8 @@ var makeCards = function() {
 }  //end of make card function
 
 makeCards(); //invoking the function that creates the cards
-shuffle (cardObjects);
-console.log(cardObjects);
+shuffle (cardObjects);  //Calls the cardObjects function to shuffle the cards
+// console.log(cardObjects);
 //shuffle cards with math.random
 // credit to + Jonas Raoni Soares Silva
 //@ http://jsfromhell.com/array/shuffle [v1.0]
@@ -71,17 +75,11 @@ function shuffle(o){ //v1.0
 }
 
 //////////////////winning conditions function
-  //if the program determines that they have gone bust, a message needs to be displayed to the user.
-  //use the score to tell the program if the dealer has gone bust
-  // if (sum > 21) {
-  //   dealerIs = 'bust';
-          // alert('The dealer has gone bust');
-
 var checkPlayerPoints = function(){
     if (playerPoints < 21) {
       //keep the player's button active
     } else if (playerPoints > 21){
-      alert('You have busted');
+      alert('You have busted. Please refresh the page to play again.');
     } else if (playerPoints == 21){
       alert('Congrats! You won!');
     }
@@ -92,7 +90,7 @@ var checkDealerPoints = function(){
     } else if (dealerPoints > 21){
       alert('You have won!!');
     } else if (dealerPoints > playerPoints){
-      alert('You have lost, sorry!');
+      alert('You have lost, sorry! Please refresh the page to play again.');
     } else if (dealerPoints == playerPoints){
       alert('You have a tie, please play again!');
     }
@@ -128,14 +126,8 @@ var checkDealerPoints = function(){
       console.log(playerPoints);
 
       checkPlayerPoints();
-      //use the score to tell the program if the player has gone bust
-      // if (sum > 21) {
-      //   playerIs = 'bust';
-      //if the program determines that they have gone bust, a message needs to be displayed to the user.
-        // alert('You have gone bust');
-        //define the winning function for the player here
       }
-    // }
+
 ////////////////////////////Start of dealer hand function
       ///Delcare the variable dealDealerCard and assigns it to a function.
       var dealDealerCard = function () {
@@ -157,24 +149,17 @@ var checkDealerPoints = function(){
         dealerPoints += getCard.value;
         console.log(dealerPoints);
         checkDealerPoints ();
-        //Variable that is called playerCards and refers to a div with an id of #player-cards
 
         //defining a while loop for dealer card so that the cards continue to be dealt - it looks to the dealer points variable to determine if a card is dealt
 
         }
-    // });
-    // dealPlayerCard ();
-    // dealPlayerCard ();
-    //
-    // dealDealerCard ();
-    // dealDealerCard ();
-
-
-
+/////////////Hit and Stay buttons
     $('#hit').click(dealPlayerCard);
     $('#stay').click(dealDealerCard);
 
+    
 
+/////////////function that only creates the first two cards for the dealer and for the player to start gameplay after the initial bet
     var twoCardsDealt = function() {
       console.log("This is the two cards dealt function");
       for (var i = 0; i < 2; i++) {
@@ -200,16 +185,29 @@ var checkDealerPoints = function(){
       checkPlayerPoints();
     };
     $('#bet').click(twoCardsDealt);
-    //create a function that only creates the first two cards for the dealer and for the player
-
-
-
-
-
 
   });  //Reminder that this is part of the window onload
 
+////Vectorized Playing Cards 2.0 - http://sourceforge.net/projects/vector-cards/
+// Copyright 2015 - Chris Aguilar - conjurenation@gmail.com
+// Licensed under LGPL 3 - www.gnu.org/copyleft/lesser.html
+///////////////////////////////////////////////////////////////////////////
+//declaration to get two cards on the board for dealer and player
+// });
+// dealPlayerCard ();
+// dealPlayerCard ();
+//
+// dealDealerCard ();
+// dealDealerCard ();
+///////////////////////////////////////////////////////////////////////////
+//use the score to tell the program if the player has gone bust
+// if (sum > 21) {
+//   playerIs = 'bust';
+//if the program determines that they have gone bust, a message needs to be displayed to the user.
+  // alert('You have gone bust');
+  //define the winning function for the player here
 
+//////////////////////////////////////////////////////
 
   // //Image tag is being created and assigned to the variable cardImage
   // var cardImage = $("<img>");
@@ -271,25 +269,15 @@ var checkDealerPoints = function(){
 //   }
 //   $('#dealFour').click( dealCardfour)
 // });
-
-
-
-
-
-
-
-
-
-
-
-
-////Vectorized Playing Cards 2.0 - http://sourceforge.net/projects/vector-cards/
-// Copyright 2015 - Chris Aguilar - conjurenation@gmail.com
-// Licensed under LGPL 3 - www.gnu.org/copyleft/lesser.html
-
+////////////////////////////
 // Original sum function for player score
 // sum = sum + getCard.value
-
+////////////////////////////
+//if the program determines that they have gone bust, a message needs to be displayed to the user.
+//use the score to tell the program if the dealer has gone bust
+// if (sum > 21) {
+//   dealerIs = 'bust';
+        // alert('The dealer has gone bust');
 ////////////////////////////
 
 // var card = $('<div>').text(getCard.value + " " + getCard.suit + " " + getCard.royal);
@@ -360,7 +348,6 @@ var checkDealerPoints = function(){
   // //Cards are shuffled
   // var displayCards = shuffle(cards);
 
-
   //Step three then create a loop or nested loop to deal cards to player and dealer
 
 /////////////////////////////////////////////Jquery to show each card
@@ -381,12 +368,8 @@ var checkDealerPoints = function(){
 
 //Using the .pop and .push methods can we deal the cards, two cards to each player?
 
-
 //thinking an if else statement with functions in each part of the statement to compare the players hand to the dealers hand
 
-
-
 //if else statement to check aces for values in each direction, using 11 as the indicator - "if less than 11 deal aceSpadehigh" "if more than 11 deal aceSpadelow"
-
 
   //thinking an if else statement with functions in each part to add or subtract from the players bank

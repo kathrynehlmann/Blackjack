@@ -2,6 +2,11 @@ body {
   background: green;
 }
 
+h1 {
+  text-align: center;
+  color: white;
+}
+
 .player-cards {
   display:inline-block;
   max-width: 600px;
@@ -21,9 +26,15 @@ body {
 
 }
 
+.bank {
+  text-align: center;
+  color: white;
+  display:inline-block;
+  max-width: 600px;
+  margin: 0 auto;
+
+}
 
 * {
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
           box-sizing: border-box;
 }
