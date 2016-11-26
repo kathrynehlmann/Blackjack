@@ -79,20 +79,25 @@ var checkPlayerPoints = function(){
     if (playerPoints < 21) {
       //keep the player's button active using else if statements
     } else if (playerPoints > 21){
-      alert('You have busted. Please refresh the page to play again.');
+      // report back to the player the result of the game and apppend that to the page
+      $('#player-result').append('You have busted and lost $10. Please refresh the page to play again.');
     } else if (playerPoints == 21){
-      alert('Congrats! You won!');
+      // report back to the player the result of the game and apppend that to the page
+      $('#player-result').append('You win $10! Great Job!');
     }
 };
 
 var checkDealerPoints = function(){
     if (dealerPoints < 17) {
     } else if (dealerPoints > 21){
-      alert('You have won!!');
+      // report back to the player the result of the game and apppend that to the page
+      $('#player-result').append('You win $10!');
     } else if (dealerPoints > playerPoints){
-      alert('You have lost, sorry! Please refresh the page to play again.');
+      // report back to the player the result of the game and apppend that to the page
+      $('#player-result').append('You have lost $10 sorry! Please refresh the page to play again.');
     } else if (dealerPoints == playerPoints){
-      alert('You have a tie, please play again!');
+      // report back to the player the result of the game and apppend that to the page
+      $('#player-result').append('You have a tie, please play again!');
     }
 };
 
@@ -144,7 +149,7 @@ var checkDealerPoints = function(){
         //cardImage is being appended each time to playerCards
         $dealerCards.append(cardImage);
         //tally up the score of the cards dealt using sum
-          //each of the cards has a value, and that value needs to be accessed and added together to be used by the program
+          //each of the cards has a value, and that value needs to be accessed and added together to be used by the game
         console.log(getCard.value);
         dealerPoints += getCard.value;
         console.log(dealerPoints);
@@ -192,17 +197,20 @@ var checkDealerPoints = function(){
     }
 
     updateCash ();
-    ///////////Make a bet
+    ///////////Make a bet and win 10 dollars if you win the game
+    $('#bet').click(function() {
+      if(cash >= bet) {
+        cash += 10;
+        updateCash();
+      }
+    });
+    ///////////Make a bet and lose 10 dollars if you lose the game
     $('#bet').click(function() {
       if(cash > bet) {
         cash -= 10;
         updateCash();
-        // console.log(cash);
       }
     });
-
-
-
 
 
 
