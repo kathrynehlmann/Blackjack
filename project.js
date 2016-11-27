@@ -15,7 +15,12 @@ $('#cash').html('You have $' + cash.toString());
 $('#add-bet').html('Standard Bet: $' + bet.toString());
 }
 
-updateCash ();
+////Enable or disable buttons based on game play
+function buttonDisabling(betButton, playButtons) {
+  $('#bet').attr('disabled', betButton);
+  $('#hit').attr('disabled', playButtons);
+  $('#stay').attr('disabled', playButtons);
+}
 
 //Constructor Function that generates the objects of the cards in the game, including the image of the back of the card.
 var Card = function (suit, value, royal, image) {
@@ -72,6 +77,7 @@ var makeCards = function() {
 
 makeCards(); //invoking the function that creates the cards
 shuffle (cardObjects);  //Calls the cardObjects function to shuffle the cards
+buttonDisabling(false, true); //Use boolean statement to activate or disable buttons for limiting gameplay within the rules of the game
 // console.log(cardObjects);
 //shuffle cards with math.random
 // credit to + Jonas Raoni Soares Silva
@@ -94,12 +100,14 @@ var checkPlayerPoints = function(){
       updateCash();
       // report back to the player the result of the game and apppend that to the page
       $('#player-result').append('You have busted and lost $10. Please refresh the page to play again.');
+      buttonDisabling(false, true); ////Use boolean statement to activate or disable buttons for limiting gameplay within the rules of the game
     } else if (playerPoints == 21){
       //operate on the variable cash to increase the player's bank by $10
       cash += 10;
       updateCash();
       // report back to the player the result of the game and apppend that to the page
       $('#player-result').append('You win $10! Great Job!');
+      buttonDisabling(false, true); //Use boolean statement to activate or disable puttons for limiting gameplay within the rules of the game
     }
 };
 
@@ -111,16 +119,19 @@ var checkDealerPoints = function(){
       updateCash();
       // report back to the player the result of the game and apppend that to the page
       $('#player-result').append('You win $10!');
+      buttonDisabling(false, true); //Use boolean statement to activate or disable puttons for limiting gameplay within the rules of the game
     } else if (dealerPoints > playerPoints){
       //operate on the variable cash to reduce the player's bank by $10
       cash -= 10;
       updateCash();
       // report back to the player the result of the game and apppend that to the page
       $('#player-result').append('You have lost $10 sorry! Please refresh the page to play again.');
+      buttonDisabling(false, true); //Use boolean statement to activate or disable puttons for limiting gameplay within the rules of the game
     } else if (dealerPoints == playerPoints){
       //don't need to update the variable cash if there is a tie
       // report back to the player the result of the game and apppend that to the page
       $('#player-result').append('You have a tie, please play again!');
+      buttonDisabling(false, true); //Use boolean statement to activate or disable puttons for limiting gameplay within the rules of the game
     }
 };
 
@@ -178,12 +189,11 @@ var checkDealerPoints = function(){
         console.log(dealerPoints);
         checkDealerPoints ();
 
-        //defining a while loop for dealer card so that the cards continue to be dealt - it looks to the dealer points variable to determine if a card is dealt
-
         }
 
 /////////////function that only creates the first two cards for the dealer and for the player to start gameplay after the initial bet
     var twoCardsDealt = function() {
+      buttonDisabling(true, false); //Use boolean statement to activate or disable puttons for limiting gameplay within the rules of the game 
       // console.log("This is the two cards dealt function");
       for (var i = 0; i < 2; i++) {
         var getCard = cardObjects.pop();
@@ -212,6 +222,8 @@ var checkDealerPoints = function(){
     /////////////Hit and Stay buttons
     $('#hit').click(dealPlayerCard);
     $('#stay').click(dealDealerCard);
+
+    updateCash();
 
   });  //Reminder that this is part of the window onload
 
