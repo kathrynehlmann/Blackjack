@@ -14,7 +14,7 @@ var playerActionCount = 0;
 /////////////Update the bank and bet functions and display them
 function updateCash() {
 $('#cash').html('You have $' + cash.toString());
-$('#add-bet').html('Standard Bet: $' + bet.toString());
+$('#add-bet').html('Standard Bet for each round: $' + bet.toString());
 }
 
 ////Enable or disable buttons based on game play
@@ -219,9 +219,9 @@ var checkDealerPoints = function(){
     var twoCardsDealt = function() {
       //enable two more actions to be played (after initial deal) by user to limit the number of cards dealt to the player
       playerActionCount = 1;
-      //use .empty as a method to reset the player cards
+      //use .empty as a method to reset the player cards div
       $('#player-cards').empty();
-      //use .empty as a method to reset the dealer cards
+      //use .empty as a method to reset the dealer cards div
       $('#dealer-cards').empty();
       //reset the playerPoints variable to 0 to start a new round
       playerPoints = 0;
