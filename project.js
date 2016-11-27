@@ -234,6 +234,7 @@ var checkDealerPoints = function(){
       //shuffle the card objects by calling it within the shuffle function
       shuffle (cardObjects);
       buttonDisabling(true, false); //Use boolean statement to activate or disable puttons for limiting gameplay within the rules of the game
+      //For loop that gets the card objects, adds images and appends them to the board for the player and the dealer
       for (var i = 0; i < 2; i++) {
         var getCard = cardObjects.pop();
         var $dealerCards = $('#dealer-cards');
@@ -257,7 +258,7 @@ var checkDealerPoints = function(){
     //clicking the bet button begins the twoCardsDealt function and puts two cards on the board, also enabled/disabled for the user in the buttonDisabling function
     $('#bet').click(twoCardsDealt);
 
-    /////////////Hit and Stay buttons, these are enabled/disabled during gameplay for the user in the buttonDisabling function 
+    /////////////Hit and Stay buttons, these are enabled/disabled during gameplay for the user in the buttonDisabling function
     $('#hit').click(dealPlayerCard);
     $('#stay').click(dealDealerCard);
 

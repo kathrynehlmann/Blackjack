@@ -11,11 +11,13 @@ body {
 h1 {
   text-align: center;
   color: white;
+  font-family: Arapey;
 }
 
 h4 {
   text-align: left;
   color: white;
+  font-family: Arapey;
 }
 
 #player-result {
