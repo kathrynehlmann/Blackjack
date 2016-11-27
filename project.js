@@ -9,6 +9,14 @@ var dealerPoints = 0;
 var cash = 100;
 var bet = 10;
 
+/////////////Update the bank and bet functions and display them
+function updateCash() {
+$('#cash').html('You have $' + cash.toString());
+$('#add-bet').html('Standard Bet: $' + bet.toString());
+}
+
+updateCash ();
+
 //Constructor Function that generates the objects of the cards in the game, including the image of the back of the card.
 var Card = function (suit, value, royal, image) {
   this.suit = suit;
@@ -74,14 +82,22 @@ function shuffle(o){ //v1.0
     return o;
 }
 
+
 //////////////////winning conditions function
 var checkPlayerPoints = function(){
     if (playerPoints < 21) {
       //keep the player's button active using else if statements
     } else if (playerPoints > 21){
+      //operate on the variable cash to reduce the player's bank by $10
+      cash -= 10;
+      //update the player's bank in the browser window to show reduced amount
+      updateCash();
       // report back to the player the result of the game and apppend that to the page
       $('#player-result').append('You have busted and lost $10. Please refresh the page to play again.');
     } else if (playerPoints == 21){
+      //operate on the variable cash to increase the player's bank by $10
+      cash += 10;
+      updateCash();
       // report back to the player the result of the game and apppend that to the page
       $('#player-result').append('You win $10! Great Job!');
     }
@@ -90,12 +106,19 @@ var checkPlayerPoints = function(){
 var checkDealerPoints = function(){
     if (dealerPoints < 17) {
     } else if (dealerPoints > 21){
+      ////operate on the variable cash to increase the player's bank by $10
+      cash += 10;
+      updateCash();
       // report back to the player the result of the game and apppend that to the page
       $('#player-result').append('You win $10!');
     } else if (dealerPoints > playerPoints){
+      //operate on the variable cash to reduce the player's bank by $10
+      cash -= 10;
+      updateCash();
       // report back to the player the result of the game and apppend that to the page
       $('#player-result').append('You have lost $10 sorry! Please refresh the page to play again.');
     } else if (dealerPoints == playerPoints){
+      //don't need to update the variable cash if there is a tie
       // report back to the player the result of the game and apppend that to the page
       $('#player-result').append('You have a tie, please play again!');
     }
@@ -190,36 +213,26 @@ var checkDealerPoints = function(){
     $('#hit').click(dealPlayerCard);
     $('#stay').click(dealDealerCard);
 
-    /////////////Update the bank and bet functions and display them
-    function updateCash() {
-    $('#cash').html('You have $' + cash.toString());
-    $('#add-bet').html('Standard Bet: $' + bet.toString());
-    }
-
-    updateCash ();
-    ///////////Make a bet and win 10 dollars if you win the game
-    $('#bet').click(function() {
-      if(cash >= bet) {
-        cash += 10;
-        updateCash();
-      }
-    });
-    ///////////Make a bet and lose 10 dollars if you lose the game
-    $('#bet').click(function() {
-      if(cash > bet) {
-        cash -= 10;
-        updateCash();
-      }
-    });
-
-
-
-
   });  //Reminder that this is part of the window onload
 
 ////Vectorized Playing Cards 2.0 - http://sourceforge.net/projects/vector-cards/
 // Copyright 2015 - Chris Aguilar - conjurenation@gmail.com
 // Licensed under LGPL 3 - www.gnu.org/copyleft/lesser.html
+///////////////////////////////////////////////////////////////////////////
+// ///////////Make a bet and win 10 dollars if you win the game
+// $('#bet').click(function() {
+//   if(cash >= bet) {
+//     cash += 10;
+//     updateCash();
+//   }
+// });
+// ///////////Make a bet and lose 10 dollars if you lose the game
+// $('#bet').click(function() {
+//   if(cash >= bet) {
+//     cash -= 10;
+//     updateCash();
+//   }
+// });
 ///////////////////////////////////////////////////////////////////////////
 //declaration to get two cards on the board for dealer and player
 // });
