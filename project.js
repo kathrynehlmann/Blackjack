@@ -1,4 +1,4 @@
-console.log('Welcome to BlackJack, circa 1997');
+console.log('Welcome to BlackJack, project one');
 ////////////////////////////////////////////Game Setup
 
 //Two globally defined variables to keep track of player points and dealer points to see who is winning or losing
@@ -8,6 +8,8 @@ var dealerPoints = 0;
 //Two globally defined variables to assign values to the player's cash and bet aspects of gameplay
 var cash = 100;
 var bet = 10;
+//Define a variable to limit how many actions a player can do within a round of cards
+var playerActionCount = 0;
 
 /////////////Update the bank and bet functions and display them
 function updateCash() {
@@ -78,7 +80,7 @@ var makeCards = function() {
 makeCards(); //invoking the function that creates the cards
 shuffle (cardObjects);  //Calls the cardObjects function to shuffle the cards
 buttonDisabling(false, true); //Use boolean statement to activate or disable buttons for limiting gameplay within the rules of the game
-// console.log(cardObjects);
+
 //shuffle cards with math.random
 // credit to + Jonas Raoni Soares Silva
 //@ http://jsfromhell.com/array/shuffle [v1.0]
@@ -91,15 +93,16 @@ function shuffle(o){ //v1.0
 
 //////////////////winning conditions function
 var checkPlayerPoints = function(){
-    if (playerPoints < 21) {
+    //if the player has less than 21 points and has taken less than three actions within the game
+    if (playerPoints < 21 && playerActionCount < 3) {
       //keep the player's button active using else if statements
     } else if (playerPoints > 21){
       //operate on the variable cash to reduce the player's bank by $10
       cash -= 10;
-      //update the player's bank in the browser window to show reduced amount
+      //update the player's bank via the cash variable and display in the browser window to show reduced amount
       updateCash();
       // report back to the player the result of the game and apppend that to the page
-      $('#player-result').append('You have busted and lost $10. Please refresh the page to play again.');
+      $('#player-result').append('You have busted and lost $10.');
       buttonDisabling(false, true); ////Use boolean statement to activate or disable buttons for limiting gameplay within the rules of the game
     } else if (playerPoints == 21){
       //operate on the variable cash to increase the player's bank by $10
@@ -108,11 +111,28 @@ var checkPlayerPoints = function(){
       // report back to the player the result of the game and apppend that to the page
       $('#player-result').append('You win $10! Great Job!');
       buttonDisabling(false, true); //Use boolean statement to activate or disable puttons for limiting gameplay within the rules of the game
+    } else {
+      //Player has taken three actions, now need to decide how the game finishes, very similar to the checkDealerPoints function
+      if (playerPoints > dealerPoints) {
+        cash += 10;
+        updateCash();
+        $('#player-result').append('You win $10! Great Job!');
+        buttonDisabling(false, true);
+      } else if (playerPoints < dealerPoints) {
+        cash -= 10;
+        updateCash();
+        $('#player-result').append('You have lost $10, sorry!');
+        buttonDisabling(false, true);
+      } else {
+        $('#player-result').append('You have a tie, please play again!');
+        buttonDisabling(false, true);
+      }
     }
 };
 
 var checkDealerPoints = function(){
-    if (dealerPoints < 17) {
+    //if the dealer has less than 17 points and the player has taken less than three actions in the game
+    if (dealerPoints < 17 && playerActionCount < 3) {
     } else if (dealerPoints > 21){
       ////operate on the variable cash to increase the player's bank by $10
       cash += 10;
@@ -125,7 +145,7 @@ var checkDealerPoints = function(){
       cash -= 10;
       updateCash();
       // report back to the player the result of the game and apppend that to the page
-      $('#player-result').append('You have lost $10 sorry! Please refresh the page to play again.');
+      $('#player-result').append('You have lost $10 sorry!');
       buttonDisabling(false, true); //Use boolean statement to activate or disable puttons for limiting gameplay within the rules of the game
     } else if (dealerPoints == playerPoints){
       //don't need to update the variable cash if there is a tie
@@ -143,6 +163,8 @@ var checkDealerPoints = function(){
     var sum = 0
     ///Delcare the variable dealPlayercard and assigns it to a function.
     var dealPlayerCard = function () {
+      //increment the playerActionCount by one each time, like in a for loop
+        playerActionCount++;
       //CardObjects is popping the last element from the array. Get card is holding on to the element that was popped out of the array.
       var getCard = cardObjects.pop();
       console.log(getCard);
@@ -170,6 +192,8 @@ var checkDealerPoints = function(){
 ////////////////////////////Start of dealer hand function
       ///Delcare the variable dealDealerCard and assigns it to a function.
       var dealDealerCard = function () {
+        //increment the playerActionCount by one each time, like in a for loop
+          playerActionCount++;
         //CardObjects is popping the last element from the array. Get card is holding on to the element that was popped out of the array.
         var getCard = cardObjects.pop();
         // console.log(getCard);
@@ -193,8 +217,23 @@ var checkDealerPoints = function(){
 
 /////////////function that only creates the first two cards for the dealer and for the player to start gameplay after the initial bet
     var twoCardsDealt = function() {
-      buttonDisabling(true, false); //Use boolean statement to activate or disable puttons for limiting gameplay within the rules of the game 
-      // console.log("This is the two cards dealt function");
+      //enable two more actions to be played (after initial deal) by user to limit the number of cards dealt to the player
+      playerActionCount = 1;
+      //use .empty as a method to reset the player cards
+      $('#player-cards').empty();
+      //use .empty as a method to reset the dealer cards
+      $('#dealer-cards').empty();
+      //reset the playerPoints variable to 0 to start a new round
+      playerPoints = 0;
+      //reset the dealerPoints variable to 0 to start a new round
+      dealerPoints = 0;
+      //be sure that cardObjects array is empty
+      cardObjects = [];
+      //create more cards using makeCards
+      makeCards();
+      //shuffle the card objects by calling it within the shuffle function
+      shuffle (cardObjects);
+      buttonDisabling(true, false); //Use boolean statement to activate or disable puttons for limiting gameplay within the rules of the game
       for (var i = 0; i < 2; i++) {
         var getCard = cardObjects.pop();
         var $dealerCards = $('#dealer-cards');
@@ -206,20 +245,19 @@ var checkDealerPoints = function(){
         dealerPoints += getCard.value;
 
         var getCard = cardObjects.pop();
-        // console.log(getCard);
         var $playerCards = $('#player-cards');
         var cardImage = $("<img>");
         cardImage.attr("src", getCard.image);
         cardImage.addClass('card');
         $playerCards.append(cardImage);
         playerPoints += getCard.value;
-        // console.log(playerPoints);
       };
       checkPlayerPoints();
     };
+    //clicking the bet button begins the twoCardsDealt function and puts two cards on the board, also enabled/disabled for the user in the buttonDisabling function
     $('#bet').click(twoCardsDealt);
 
-    /////////////Hit and Stay buttons
+    /////////////Hit and Stay buttons, these are enabled/disabled during gameplay for the user in the buttonDisabling function 
     $('#hit').click(dealPlayerCard);
     $('#stay').click(dealDealerCard);
 
