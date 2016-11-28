@@ -1,5 +1,5 @@
 body {
-  background: green;
+  background: #70C1B3;
 }
 
 .game-board {
@@ -10,13 +10,13 @@ body {
 
 h1 {
   text-align: center;
-  color: white;
+  color: #40798C;
   font-family: Arapey;
 }
 
 h4 {
   text-align: left;
-  color: white;
+  color: #F7F9F9;
   font-family: Arapey;
 }
 
@@ -24,7 +24,7 @@ h4 {
   display:inline-block;
   max-width: 800px;
   margin: 0 auto;
-  color: white;
+  color: #F7F9F9;
 
 }
 
@@ -49,7 +49,7 @@ h4 {
 
 #cash {
   text-align: center;
-  color: white;
+  color: #F7F9F9;
   display:inline-block;
   max-width: 800px;
   margin: 0 auto;
@@ -58,7 +58,7 @@ h4 {
 
 #add-bet {
   text-align: center;
-  color: white;
+  color: #F7F9F9;
   display:inline-block;
   max-width: 800px;
   margin: 0 auto;
