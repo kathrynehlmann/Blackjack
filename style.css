@@ -1,70 +1,73 @@
+/* Box sizing first */
+* { box-sizing: border-box; }
+
+/* Page */
 body {
   background: #70C1B3;
+  margin: 0;
+  font-family: "Arapey", serif;
 }
 
-.game-board {
-  display: inline-block;
-  max-width: 800px
+/* Centering container used site-wide */
+.container {
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 24px;
 }
 
+/* Game board */
+.game-board {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center; /* horizontal centering of children */
+}
+
+/* Headings */
 h1 {
   text-align: center;
   color: #40798C;
-  font-family: Arapey;
 }
-
 h4 {
-  text-align: left;
   color: #F7F9F9;
-  font-family: Arapey;
+  align-self: flex-start; /* left-align within the centered container */
 }
 
-#player-result {
-  display:inline-block;
-  max-width: 800px;
-  margin: 0 auto;
+/* Results / cash / bet blocks */
+#player-result,
+#cash,
+#add-bet {
+  width: 100%;
+  max-width: 1200px;
   color: #F7F9F9;
-
+  text-align: center;
 }
 
-.player-cards {
-  display:inline-block;
-  max-width: 800px;
-  margin: 0 auto;
-
-}
-
+/* Card rows (flex to wrap and center cards) */
+.player-cards,
 .dealer-cards {
-  display:inline-block;
-  max-width: 800px;
-  margin: 0 auto;
-
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  width: 100%;
 }
 
+/* Individual card */
 .card {
   display: inline-block;
-
+  width: 120px;           /* example size */
+  height: 180px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-#cash {
-  text-align: center;
-  color: #F7F9F9;
-  display:inline-block;
-  max-width: 800px;
-  margin: 0 auto;
-
-}
-
-#add-bet {
-  text-align: center;
-  color: #F7F9F9;
-  display:inline-block;
-  max-width: 800px;
-  margin: 0 auto;
-
-}
-
-* {
-          box-sizing: border-box;
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .card { width: 90px; height: 135px; }
+  .container { padding: 12px; }
 }
