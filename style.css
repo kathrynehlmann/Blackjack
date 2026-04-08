@@ -4,7 +4,7 @@ body {
 
 .game-board {
   display: inline-block;
-  max-width: 1200px
+  max-width: 800px
   margin: 0 auto;
 }
 
@@ -15,7 +15,7 @@ h1 {
 }
 
 h4 {
-  text-align: center;
+  text-align: left;
   color: #F7F9F9;
   font-family: Arapey;
 }
